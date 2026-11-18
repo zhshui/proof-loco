@@ -1,0 +1,28 @@
+{
+  "task": "Proof-Heightmap-Parkour-PPO-Go2",
+  "physics": "ovphysx",
+  "checkpoint": "proof_heightmap_teacher_model_8500.pt",
+  "training": {
+    "pretrain_iterations": 1500,
+    "parkour_iterations": 8500,
+    "num_envs": 4096,
+    "seed": 42,
+    "run_id": "full_20261117_112433"
+  },
+  "source_revisions": {
+    "IsaacLab": "3e7e6137089d1db8823f3011941ab1ee73cc9954",
+    "LocoLab": "ab9bdaf272f7d8cc37a18ec7877e9e6400ebc88e",
+    "z_rl": "4c8f0a2d1b7e7366d34edcdac5d060c53613451c",
+    "proof_loco": "e6d7447f61e03f352a3a44807661e9e66a3b12c9",
+    "assetx": "a5672d7273fc39e91674ba26a54d9df7c37f00fd"
+  },
+  "runtime": {
+    "python": "3.12.16",
+    "torch": "2.11.0+cu126",
+    "torchvision": "0.26.0+cu126",
+    "numpy": "2.4.6",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "driver": "535.247.01"
+  },
+  "sha256": "11a9ba7a2bdf1445c2fa87a6bdec4400bf4877467e5b2a103cc86071a4e7186d"
+}

@@ -156,6 +156,23 @@ python scripts/z_rl/play.py --task Proof-Vision-Parkour-Distill-Go2 --physics ov
 
 
 
+### Released teacher checkpoint
+
+A complete PROOF heightmap teacher checkpoint trained with the released code is available at [`checkpoints/proof_heightmap_teacher_model_8500.pt`](checkpoints/proof_heightmap_teacher_model_8500.pt). The matching metadata and SHA-256 digest are in [`checkpoints/proof_heightmap_teacher_model_8500.json`](checkpoints/proof_heightmap_teacher_model_8500.json). It contains 1,500 pretraining iterations followed by 8,500 parkour iterations with 4,096 environments and seed 42.
+
+Play it with:
+
+```bash
+source /path/to/workspace/activate.sh
+python scripts/z_rl/play.py \
+  --task Proof-Heightmap-Parkour-PPO-Go2 \
+  --physics ovphysx --num_envs 40 --viser \
+  --checkpoint /absolute/path/to/checkpoints/proof_heightmap_teacher_model_8500.pt
+```
+
+The corresponding vision student run was interrupted after 21 of 10,000 iterations, so this release contains the complete teacher checkpoint only.
+
+
 ## 💛 Acknowledgement
 
 - [IsaacLab](https://github.com/isaac-sim/IsaacLab) and [rsl_rl](https://github.com/leggedrobotics/rsl_rl)
@@ -173,10 +190,11 @@ If student training encounters CUDA/cuDNN library conflicts or excessive convolu
 # Your uv env
 export CURRENT_PY_ENV_SITE="$(python -c 'import sysconfig; print(sysconfig.get_path("purelib"))')"
 
-# Prioritize the current virtual environment's cuDNN and CUDA 13 libraries.
-export LD_LIBRARY_PATH="$CURRENT_PY_ENV_SITE/nvidia/cudnn/lib:$CURRENT_PY_ENV_SITE/nvidia/cu13/lib:$CURRENT_PY_ENV_SITE/torch/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+# For NVIDIA driver 535.x, use the compatible CUDA 12.6 environment.
+# The PROOF runtime uses PyTorch 2.11.0+cu126 and Warp 1.17.0.
+source /path/to/workspace/activate-cu126.sh
 
-# Avoid high initialization overhead for dynamic-batch convolutions.
+# Keep cuDNN and the PyTorch libraries ahead of system CUDA libraries.
 export TORCH_CUDNN_V8_API_DISABLED=1
 ```
 
